@@ -11,7 +11,7 @@ start(){
         if [ $num -gt 0 ];then
                 echo "jmeter is already in processing,please try it later"
         else
-        ./apache-jmeter-5.0/bin/jmeter -n -t ./script/${script_name} -l ./result/${script_name}${date}.jtl -R ${slave}
+        nohup ./apache-jmeter-5.0/bin/jmeter -n -t ./script/"$script_name" -l ./result/"$script_name""$date".jtl -R "$slave" >./output/"$script_name""$date".log 2>&1 &
         echo 'start success'
         fi
 }
