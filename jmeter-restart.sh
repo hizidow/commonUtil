@@ -5,7 +5,7 @@ num=`ps -ef|grep apache-jmeter-5.0/bin/jmeter | grep -v grep | wc -l`
 dotype=$1
 script_name=$2
 slave=$3
-date=`date +%Y/%m/%d-%H:%M:%S`
+date=`date +%Y-%m-%d_%H:%M:%S`
 
 start(){
         if [ $num -gt 0 ];then
