@@ -27,12 +27,29 @@ stop(){
 restart(){
 	stop
 	start
+	if [ $? -eq 0 ];then
+                echo 'restart success'
+        fi
 }
 
-del(){
-	find ./mappings/ -name *"$filename"* | xargs rm -fr
-	echo 'delete file success'
+moveback(){
+	file=`find ./map_del/ -name *"$filename"*`
+        mv "$file" ./mappings/
+        if [ $? -eq 0 ];then
+                echo 'moveback file success'
+        fi
+
 }
+
+
+move(){
+	file=`find ./mappings/ -name *"$filename"*`
+	mv "$file" ./map_del/
+	if [ $? -eq 0 ];then
+                echo 'move file success'
+        fi
+}
+
 if [ $# -eq 1 ];then
 	dotype=$1
 	
@@ -53,8 +70,11 @@ elif [ $# -eq 2 ];then
 	dotype=$1
 	filename=$2
 	
-	if [ "$dotype" == "del" ];then
-		del
+	if [ "$dotype" == "move" ];then
+		move
+	fi
+	if [ "$dotype" == "moveback" ];then
+		moveback
 	fi
 else
 	echo 'input params error'
