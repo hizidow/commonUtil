@@ -1,0 +1,38 @@
+####################开始执行压测######################
+
+index=0
+for file in `ls ./zzdjmx/`
+do
+filelist[$index]="$file"
+((index++))
+done
+
+for(( i=0;i<${#filelist[@]};i++))
+do
+ nohup ./jmeter -n -t "./zzdjmx/${filelist[i]}" -l  "./zzdjtl/${filelist[i]}.jtl" > "./output/${filelist[i]}" 2>&1 &;
+ sleep 11m;
+done;
+
+####################结束执行压测######################
+##
+####################开始生成报告######################
+
+index1=0
+for file in `ls ./zzdjtl/`
+do
+filelist1[$index1]="$file"
+((index1++))
+done
+
+for(( i=0;i<${#filelist1[@]};i++))
+do
+ ./jmeter -g "./zzdjtl/${filelist1[i]}" -o  "./zzdreport/${filelist1[i]}_report";
+done;
+
+####################结束生成报告######################
+##
+####################开始聚合报告结果######################
+
+java -jar ./zzdreport/jmeter-tools-1.0-SNAPSHOT-jar-with-dependencies.jar ./zzdreport
+
+####################结束聚合报告结果######################
