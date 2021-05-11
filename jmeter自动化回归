@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ####################开始执行压测######################
 
 index=0
@@ -9,8 +11,8 @@ done
 
 for(( i=0;i<${#filelist[@]};i++))
 do
- nohup ./jmeter -n -t "./zzdjmx/${filelist[i]}" -l  "./zzdjtl/${filelist[i]}.jtl" > "./output/${filelist[i]}" 2>&1 &;
- sleep 11m;
+ nohup ./jmeter -n -t "./zzdjmx/${filelist[i]}" -l  "./zzdjtl/${filelist[i]}.jtl" > "./output/${filelist[i]}" 2>&1 &
+ sleep 11m
 done;
 
 ####################结束执行压测######################
@@ -26,7 +28,7 @@ done
 
 for(( i=0;i<${#filelist1[@]};i++))
 do
- ./jmeter -g "./zzdjtl/${filelist1[i]}" -o  "./zzdreport/${filelist1[i]}_report";
+ ./jmeter -g "./zzdjtl/${filelist1[i]}" -o  "./zzdreport/${filelist1[i]}_report"
 done;
 
 ####################结束生成报告######################
